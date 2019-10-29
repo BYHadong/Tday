@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Tday</string>
+    <string name="toDayWillDoWork">할일</string>
+    <string name="toDayWillDoStudy">공부</string>
+    
+    <string-array name="toDayUseMoneyCategoryList">
+        <item>식비</item>
+        <item>유흥비</item>
+        <item>취미</item>
+        <item>교통비</item>
+        <item>물건비</item>
+        <item>빌린돈</item>
+        <item>빌려준돈</item>
+    </string-array>
+</resources>
