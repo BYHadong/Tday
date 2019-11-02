@@ -1,13 +1,14 @@
 package byc.app.tday.Adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import byc.app.tday.R
-import byc.app.tday.dataClass.ToDayMoney
+import byc.app.tday.dataClass.ToDay
 
-class ToDayMoneyListAdapter(private val toDayMoneyList: List<ToDayMoney>): RecyclerView.Adapter<ToDayMoneyListAdapter.TodayMoneyListViewHolder>() {
+class ToDayMoneyListAdapter(val toDayMoneyList: List<ToDay>): RecyclerView.Adapter<ToDayMoneyListAdapter.TodayMoneyListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodayMoneyListViewHolder = TodayMoneyListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.to_day_work_money_item, parent, false))
 

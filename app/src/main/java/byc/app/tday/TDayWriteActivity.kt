@@ -1,5 +1,6 @@
 package byc.app.tday
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -36,14 +37,16 @@ class TDayWriteActivity : AppCompatActivity() {
         toDayWillDoWorkStudy = findViewById(R.id.toDayWillDoWorkStudy_WriteLayout)
         toDayWillDoWorkStartTime = findViewById(R.id.toDayWorkStartTime_WriteLayout)
         toDayWillDoWorkFinishTime = findViewById(R.id.toDayWorkFinishTime_WriteLayout)
-        toDayWillDoWork = findViewById(R.id.toDayWillDoWork)
+        toDayWillDoWork = findViewById(R.id.toDayWillDoWork_WriteLayout)
         toDayUseMoneyCategory = findViewById(R.id.toDayUseMoneyCategory_WriteLayout)
         toDayUseMoney = findViewById(R.id.toDayUseMoney_WriteLayout)
         toDayUseMoneyMemo = findViewById(R.id.toDayUseMoneyMemo_WriteLayout)
         toDayOkButton = findViewById(R.id.toDayOkButton)
 
+
         toDayOkButton.setOnClickListener {
             //데이터 받아오기
+            //데이터가 아직은 없어도 ㄱㅊ
             val toDayComment = toDayWillDoWorkComment.text.toString()
             val toDayStudy = toDayWillDoWorkStudy.text.toString()
             val toDayWork = toDayWillDoWork.text.toString()
@@ -69,6 +72,10 @@ class TDayWriteActivity : AppCompatActivity() {
                 toDayMoneyGroup
             )
             tDay.add(tDayData)
+            //DataBase 에 추가
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("flag", true)
+            finish()
         }
 
     }

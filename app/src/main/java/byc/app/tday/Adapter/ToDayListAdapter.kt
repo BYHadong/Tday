@@ -1,23 +1,33 @@
 package byc.app.tday.Adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import byc.app.tday.R
 import byc.app.tday.dataClass.ToDay
+import org.w3c.dom.Text
 
-class ToDayListAdapter(private val toDayList: List<ToDay>): RecyclerView.Adapter<ToDayListAdapter.ToDayListViewHolder>(){
+class ToDayListAdapter(val toDayList: List<ToDay>): RecyclerView.Adapter<ToDayListAdapter.ToDayListViewHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDayListViewHolder = ToDayListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.to_day_item, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDayListViewHolder = ToDayListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.to_day_item, parent, false), toDayList)
 
     override fun getItemCount(): Int = toDayList.size
 
     override fun onBindViewHolder(holder: ToDayListViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        holder.toDayDate.text = toDayList[position].toDay
+        holder.toDayWillDoWorkComment.text = toDayList[position].toDayWillDoWork.toDayWillDoWork
+        holder.toDayWillDoStudyComment.text = toDayList[position].toDayWillDoWork.toDayWillDoStudy
+        val toDayMoneyListAdapter = ToDayMoneyListAdapter(toDayList)
+        holder.toDayWorkAndMoneyList.adapter = toDayMoneyListAdapter
     }
 
-    class ToDayListViewHolder(item: View): RecyclerView.ViewHolder(item) {
-
+    class ToDayListViewHolder(item: View, toDayList: List<ToDay>): RecyclerView.ViewHolder(item) {
+        val toDayDate = item.findViewById<TextView>(R.id.toDayDate)
+        val toDayWillDoWorkComment = item.findViewById<TextView>(R.id.toDayWillDoWorkComment)
+        val toDayWillDoStudyComment = item.findViewById<TextView>(R.id.toDayWillDoStudyComment)
+        val toDayWorkAndMoneyList = item.findViewById<RecyclerView>(R.id.toDayWorkAndMoneyList)
     }
 }
