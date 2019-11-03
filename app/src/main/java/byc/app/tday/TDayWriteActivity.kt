@@ -73,8 +73,7 @@ class TDayWriteActivity : AppCompatActivity() {
             )
             tDay.add(tDayData)
             //DataBase 에 추가
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("flag", true)
+
             finish()
         }
 
