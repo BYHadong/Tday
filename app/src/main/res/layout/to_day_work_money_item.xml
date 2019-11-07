@@ -30,7 +30,7 @@
     </LinearLayout>
     
     <TextView
-            android:id="@+id/toDayWorkContent"
+            android:id="@+id/toDayWork"
             android:layout_margin="4dp"
             android:padding="8dp"
             android:text="text"

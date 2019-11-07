@@ -10,9 +10,9 @@ import byc.app.tday.R
 import byc.app.tday.dataClass.ToDay
 import org.w3c.dom.Text
 
-class ToDayListAdapter(val toDayList: List<ToDay>): RecyclerView.Adapter<ToDayListAdapter.ToDayListViewHolder>(){
+class ToDayListAdapter(val toDayList: MutableList<ToDay>): RecyclerView.Adapter<ToDayListAdapter.ToDayListViewHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDayListViewHolder = ToDayListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.to_day_item, parent, false), toDayList)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDayListViewHolder = ToDayListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.to_day_item, parent, false))
 
     override fun getItemCount(): Int = toDayList.size
 
@@ -24,7 +24,7 @@ class ToDayListAdapter(val toDayList: List<ToDay>): RecyclerView.Adapter<ToDayLi
         holder.toDayWorkAndMoneyList.adapter = toDayMoneyListAdapter
     }
 
-    class ToDayListViewHolder(item: View, toDayList: List<ToDay>): RecyclerView.ViewHolder(item) {
+    class ToDayListViewHolder(item: View): RecyclerView.ViewHolder(item) {
         val toDayDate = item.findViewById<TextView>(R.id.toDayDate)
         val toDayWillDoWorkComment = item.findViewById<TextView>(R.id.toDayWillDoWorkComment)
         val toDayWillDoStudyComment = item.findViewById<TextView>(R.id.toDayWillDoStudyComment)

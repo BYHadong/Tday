@@ -6,11 +6,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import byc.app.tday.DataBase.ToDayDataBaseHelper
 import byc.app.tday.dataClass.ToDay
 import byc.app.tday.dataClass.ToDayMoney
 import byc.app.tday.dataClass.ToDayWillDoWork
 import byc.app.tday.dataClass.ToDayWork
-import kotlinx.android.synthetic.main.activity_tday_write.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -43,10 +43,14 @@ class TDayWriteActivity : AppCompatActivity() {
         toDayUseMoneyMemo = findViewById(R.id.toDayUseMoneyMemo_WriteLayout)
         toDayOkButton = findViewById(R.id.toDayOkButton)
 
+        val dataBaseHelper = ToDayDataBaseHelper(this)
+        val toDayWillDoWorkList = dataBaseHelper.GetToDayDataWillWork()
+        if(toDayWillDoWorkList != null){
+
+        }
 
         toDayOkButton.setOnClickListener {
             //데이터 받아오기
-            //데이터가 아직은 없어도 ㄱㅊ
             val toDayComment = toDayWillDoWorkComment.text.toString()
             val toDayStudy = toDayWillDoWorkStudy.text.toString()
             val toDayWork = toDayWillDoWork.text.toString()
@@ -59,21 +63,24 @@ class TDayWriteActivity : AppCompatActivity() {
             //데이터 값 넣기
             val toDayWillDoWorkGroup = ToDayWillDoWork(toDayWork, toDayStudy)
             val toDayWorkGroup = ToDayWork(toDayComment, toDayStartTime, toDayFinishTime)
-            val toDayMoneyGroup = ToDayMoney(toDayUseMoney.toInt(), toDayUseMoneyCategory, todayUseMoneyMemo)
+            val toDayMoneyGroup = ToDayMoney(toDayUseMoney, toDayUseMoneyCategory, todayUseMoneyMemo)
             
             //초기화
             val tDayData = ToDay(
-                "${GetDayOfWeek()} ${SimpleDateFormat(
+                toDay = "${GetDayOfWeek()} ${SimpleDateFormat(
                     "yyyy년 MM월 dd일",
                     Locale.KOREA
                 ).format(Date(System.currentTimeMillis()))}",
-                toDayWillDoWorkGroup,
-                toDayWorkGroup,
-                toDayMoneyGroup
+                toDayWillDoWork = toDayWillDoWorkGroup,
+                toDayWork = toDayWorkGroup,
+                toDayMoney = toDayMoneyGroup
             )
-            tDay.add(tDayData)
-            //DataBase 에 추가
 
+            //DataBase 에 추가
+            val dataBase = ToDayDataBaseHelper(this)
+            dataBase.InserData(tDayData)
+
+            startActivity(Intent(applicationContext, MainActivity::class.java))
             finish()
         }
 
