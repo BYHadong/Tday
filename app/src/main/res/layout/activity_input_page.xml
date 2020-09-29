@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".View.InputPage">
+    
+    <ImageView
+            android:id="@+id/workCategoryIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_button_margin_size"
+            app:layout_constraintLeft_toRightOf="@+id/workCategorySpinner"
+            app:layout_constraintBottom_toTopOf="@+id/workContent"
+            android:src="@drawable/baseline_add_black_48" />
+    
+    <TextView
+            android:id="@+id/startTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="68dp"
+            android:layout_marginTop="140dp"
+            android:text="startTime"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    
+    <TextView
+            android:id="@+id/finishTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="108dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginEnd="76dp"
+            android:text="finishTime"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/startTextView"
+            app:layout_constraintTop_toTopOf="parent" />
+    
+    <EditText
+            android:id="@+id/workContent"
+            android:layout_width="311dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="304dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="workContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.46"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    
+    <Spinner
+            android:id="@+id/workCategorySpinner"
+            android:layout_width="160dp"
+            android:layout_height="37dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/workContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.183"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+    
+    <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="144dp"
+            android:layout_marginEnd="26dp"
+            android:text="~"
+            app:layout_constraintEnd_toStartOf="@+id/finishTextView"
+            app:layout_constraintHorizontal_bias="0.562"
+            app:layout_constraintStart_toEndOf="@+id/startTextView"
+            app:layout_constraintTop_toTopOf="parent" />
+    
+    <Button
+            android:id="@+id/todayAddButton"
+            android:layout_width="315dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:text="Add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.468"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/workContent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
