@@ -1,23 +1,17 @@
-package byc.app.tday.View
+package byc.app.tday.Page
 
 import android.app.Activity
 import android.app.TimePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.DatePicker
-import android.widget.TimePicker
 import byc.app.tday.R
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_input_page.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.time.hours
-import kotlin.time.minutes
 
 class InputPage : AppCompatActivity() {
 
@@ -44,36 +38,8 @@ class InputPage : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                when(position){
-                    0 -> {
-                        categoryData = workCategory.get(position)
-                        workCategorySpinner.setSelection(position)
-                    }
-                    1 -> {
-                        categoryData = workCategory.get(position)
-                        workCategorySpinner.setSelection(position)
-                    }
-                    2 -> {
-                        categoryData = workCategory.get(position)
-                        workCategorySpinner.setSelection(position)
-                    }
-                    3 -> {
-                        categoryData = workCategory.get(position)
-                        workCategorySpinner.setSelection(position)
-                    }
-                    4 -> {
-                        categoryData = workCategory.get(position)
-                        workCategorySpinner.setSelection(position)
-                    }
-                    5 -> {
-                        categoryData = workCategory.get(position)
-                        workCategorySpinner.setSelection(position)
-                    }
-                    6 -> {
-                        categoryData = workCategory.get(position)
-                        workCategorySpinner.setSelection(position)
-                    }
-                }
+                categoryData = workCategory.get(position)
+                workCategorySpinner.setSelection(position)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -83,7 +49,7 @@ class InputPage : AppCompatActivity() {
 
         todayAddButton.setOnClickListener { view ->
             val replyIntent = Intent()
-            replyIntent.putExtra(WORK_DATA_ARRAY, arrayListOf(workContent.text.toString(), startTextView.text.toString(), categoryData))
+            replyIntent.putExtra(WORK_DATA_ARRAY, arrayListOf(startTextView.text.toString(), finishTextView.text.toString(), categoryData, workContent.text.toString(), userPosition.text.toString(), useMoney.text.toString(), useMoneyMemo.text.toString()))
             setResult(Activity.RESULT_OK, replyIntent)
             finish()
         }

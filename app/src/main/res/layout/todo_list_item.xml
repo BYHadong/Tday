@@ -4,35 +4,45 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_margin="@dimen/fab_mini_button_margin_size"
-        >
+        android:orientation="vertical">
     
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="-----------------------------------------"
-            />
-    
-    <TextView
-            android:id="@+id/workDataId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="1"
-            />
-    
-    <TextView
-            android:id="@+id/workCategoryTextViewTodoItem"
+            android:id="@+id/workCategoryTodoListItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView" />
     
-    <TextView
-            android:id="@+id/WorkUseTimeDataTodoListItem"
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="TextView" />
+            android:orientation="horizontal">
+        
+        <TextView
+                android:id="@+id/WorkStartTimeDataTodoListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="TextView" />
+        
+        <TextView
+                android:id="@+id/WorkFinishTimeDataTodoListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="TextView" />
+        
+        <TextView
+                android:id="@+id/WorkUseTimeDataTodoListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="TextView" />
+    
+    </LinearLayout>
     
     <TextView
             android:id="@+id/WorkContentTodoListItem"
@@ -40,5 +50,36 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="TextView" />
+    
+    <TextView
+            android:id="@+id/WorkPositionTodoListItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView" />
+    
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        
+        <TextView
+                android:id="@+id/useMoneyTodoListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="TextView" />
+        
+        <TextView
+                android:id="@+id/useMoneyMemoTodoListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="TextView" />
+    
+    </LinearLayout>
+
 
 </LinearLayout>

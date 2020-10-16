@@ -5,18 +5,18 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import byc.app.tday.Room.Work.WorkDao
-import byc.app.tday.Room.Work.WorkModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
 //한번만 객체를 할당 하기 위해 싱글톤 선언
-@Database(entities = arrayOf(WorkModel::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(WorkModel::class, MoneyModel::class, WorkWithMoneyModel::class), version = 1, exportSchema = false)
 public abstract class TdayDataBase : RoomDatabase() {
 
+    //CallBack에서 데이터를 사용하기 위해
     abstract fun workDao(): WorkDao
-
+    abstract fun moneyDao(): MoneyDao
+    abstract fun workWithMoneyDao(): WorkWithMoneyDao
 
     companion object {
         @Volatile
@@ -42,8 +42,10 @@ public abstract class TdayDataBase : RoomDatabase() {
         }
     }
 
+    //DataCallBack Event
     class TdayDatabaseCallback(private val scope: CoroutineScope): RoomDatabase.Callback()
     {
+        //OnOpen DB를 처음 열때 생기는 이벤트(화면에 처음 들어갈때 생기는 이벤트
         override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
             INSTANCE?.let { tdayDataBase ->
@@ -54,12 +56,6 @@ public abstract class TdayDataBase : RoomDatabase() {
         }
 
         suspend fun populateDatabase(workDao: WorkDao) {
-            workDao.deleteAllWorkModel()
-
-            var work = WorkModel("공부","7", "안드로이드")
-            workDao.workDataInsert(work)
-            work = WorkModel("게임", "2", "리그오브레전드")
-            workDao.workDataInsert(work)
         }
     }
 }

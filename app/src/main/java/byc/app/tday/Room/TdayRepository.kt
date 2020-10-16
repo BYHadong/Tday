@@ -1,4 +1,4 @@
-package byc.app.tday.Room.Work
+package byc.app.tday.Room
 
 import androidx.lifecycle.LiveData
 
@@ -22,4 +22,24 @@ class WorkRepository(private val wordDao: WorkDao){
     suspend fun workDataDelete(workModel: WorkModel){
         wordDao.workDataDelete(workModel)
     }
+}
+
+class MoneyRepository(private val moneyDao: MoneyDao){
+    val moneyData: LiveData<List<MoneyModel>> = moneyDao.moneyDataGetAll()
+
+    suspend fun moneyDataInsert(moneyModel: MoneyModel){
+        moneyDao.moneyDataInsert(moneyModel)
+    }
+
+    suspend fun moneyDataUpdate(moneyModel: MoneyModel){
+        moneyDao.moneyDataUpdate(moneyModel)
+    }
+
+    suspend fun moneyDataDelete(moneyModel: MoneyModel){
+        moneyDao.moneyDataDelete(moneyModel)
+    }
+}
+
+class TdayRepository(private val tdayDao:WorkWithMoneyDao){
+    val tdayData: LiveData<List<WorkWithMoneyModel>> = tdayDao.tdayDataGetAll()
 }
