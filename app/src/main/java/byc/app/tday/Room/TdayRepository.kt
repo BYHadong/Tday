@@ -40,6 +40,6 @@ class MoneyRepository(private val moneyDao: MoneyDao){
     }
 }
 
-class TdayRepository(private val tdayDao:WorkWithMoneyDao){
+class TdayRepository(private val tdayDao: WorkWithMoneyDao){
     val tdayData: LiveData<List<WorkWithMoneyModel>> = tdayDao.tdayDataGetAll()
 }

@@ -3,14 +3,13 @@ package byc.app.tday.Page
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import byc.app.tday.Model.adapter.TodoListAdapter
+import byc.app.tday.Model.adapter.TdayListAdapter
 import byc.app.tday.R
 import byc.app.tday.Room.MoneyModel
 import byc.app.tday.Room.WorkModel
@@ -35,16 +34,9 @@ class TdayMain : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tday_main)
 
-        val todoListAdapter = TodoListAdapter(this)
+        val todoListAdapter = TdayListAdapter(this)
         toDoList.adapter = todoListAdapter
         toDoList.layoutManager = LinearLayoutManager(this)
-
-//        workViewModel = ViewModelProvider(this).get(WorkViewModel::class.java)
-//        workViewModel.workData.observe(this, Observer { work ->
-//            work?.let {
-//                todoListAdapter.setTodoList(work)
-//            }
-//        })
 
         workViewModel = ViewModelProvider(this).get(WorkViewModel::class.java)
         moneyViewModel = ViewModelProvider(this).get(MoneyViewModel::class.java)
@@ -55,7 +47,7 @@ class TdayMain : AppCompatActivity() {
             }
         })
 
-        FabClickEventAdd(inputPage)
+        FabClickEventAdd(inputPageMainLayout)
         FabClickEventAdd(listPage)
         FabClickEventAdd(chartPage)
         FabClickEventAdd(todoPage)
@@ -63,12 +55,12 @@ class TdayMain : AppCompatActivity() {
         mainFabButton.setOnClickListener { view ->
             isMainFabButtonClicked = RotateFab(mainFabButton, !isMainFabButtonClicked)
             if (isMainFabButtonClicked) {
-                FabButtonLayoutParmsChange(inputPage, true)
+                FabButtonLayoutParmsChange(inputPageMainLayout, true)
                 FabButtonLayoutParmsChange(listPage, true)
                 FabButtonLayoutParmsChange(chartPage, true)
                 FabButtonLayoutParmsChange(todoPage, true)
             } else {
-                FabButtonLayoutParmsChange(inputPage, false)
+                FabButtonLayoutParmsChange(inputPageMainLayout, false)
                 FabButtonLayoutParmsChange(listPage, false)
                 FabButtonLayoutParmsChange(chartPage, false)
                 FabButtonLayoutParmsChange(todoPage, false)
@@ -79,7 +71,7 @@ class TdayMain : AppCompatActivity() {
     fun FabClickEventAdd(fabButton: FloatingActionButton) {
         FabAnimationInit(fabButton)
         when (fabButton.id) {
-            inputPage.id -> {
+            inputPageMainLayout.id -> {
                 fabButton.setOnClickListener { view ->
                     startActivityForResult(
                         Intent(this, InputPage::class.java),
@@ -107,7 +99,7 @@ class TdayMain : AppCompatActivity() {
 
     fun FabButtonHeightCal(fabButton: FloatingActionButton): Float {
         when (fabButton.id) {
-            inputPage.id -> {
+            inputPageMainLayout.id -> {
                 return (-(fabButton.height.toFloat()) * 1.5F)
             }
             listPage.id -> {
@@ -175,34 +167,22 @@ class TdayMain : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newWorkActivityRequesCode && resultCode == Activity.RESULT_OK) {
-            data?.getStringArrayListExtra(InputPage.WORK_DATA_ARRAY)?.let { tdayData ->
+            data?.getStringArrayListExtra(InputPage.WORK_DATA_ARRAY)?.let { workdData ->
+                //0: StartTime, 1: FinishTime, 2: Category, 3: WorkMemo, 4: userPosition,
                 val work = WorkModel(
-                    category = tdayData.get(2),
-                    workStartTime = tdayData.get(0),
-                    workFinishTime = tdayData.get(1),
-                    workMemo = tdayData.get(3),
-                    workPosition = tdayData.get(4)
+                    category = workdData.get(2),
+                    workStartTime = workdData.get(0),
+                    workFinishTime = workdData.get(1),
+                    workMemo = workdData.get(3),
+                    workPosition = workdData.get(4)
                 )
                 workViewModel.WorkDataInsert(work)
-                var workIdData: Long? = 0L
-                workViewModel.workData.observe(
-                    this,
-                    Observer { workID -> workIdData = workID.get(workID.lastIndex).id })
-                val money =
-                    MoneyModel(value = tdayData.get(5), memo = tdayData.get(6), workId = workIdData)
-                moneyViewModel.MoneyDataInsert(money)
+            }
 
-                val tdayDatas = tdayViewModel.tdayData
-                tdayDatas.observe(this, Observer { tdayVal ->
-                    run {
-                        val tdata = tdayVal[tdayVal.size - 1]
-                        Log.d(
-                            "Data Insert",
-                            "work id : ${tdata.workModel.id}, category : ${tdata.workModel.category}, startTime : ${tdata.workModel.workStartTime}, finishTime : ${tdata.workModel.workFinishTime}" +
-                                    ", workMemo : ${tdata.workModel.workMemo}, workPosition : ${tdata.workModel.workPosition}, moneyUse : ${tdata.moneyList[tdata.moneyList.size - 1].value}, moneyMemo : ${tdata.moneyList[tdata.moneyList.size - 1].memo}"
-                        )
-                    }
-                })
+//            0: useMoney, 1: useMoneyMemo
+            data?.getStringArrayListExtra(InputPage.MONEY_DATA_ARRAY)?.let { moneyData ->
+                val money = MoneyModel(value = moneyData.get(0), memo = moneyData.get(1))
+                moneyViewModel.MoneyDataInsert(money)
             }
         } else {
             Snackbar.make(window.decorView.rootView, "응답없음(Room)", Snackbar.LENGTH_SHORT).show()

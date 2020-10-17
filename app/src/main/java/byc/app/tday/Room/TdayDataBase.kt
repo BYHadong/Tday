@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 
 //한번만 객체를 할당 하기 위해 싱글톤 선언
-@Database(entities = arrayOf(WorkModel::class, MoneyModel::class, WorkWithMoneyModel::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(WorkModel::class, MoneyModel::class), version = 1, exportSchema = false)
 public abstract class TdayDataBase : RoomDatabase() {
 
     //CallBack에서 데이터를 사용하기 위해

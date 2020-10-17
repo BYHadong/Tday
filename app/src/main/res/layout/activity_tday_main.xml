@@ -83,7 +83,7 @@
             app:layout_constraintRight_toRightOf="parent" />
     
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/inputPage"
+            android:id="@+id/inputPageMainLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_mini_button_hide_margin_size"

@@ -5,62 +5,46 @@ import androidx.room.*
 @Entity(tableName = "work_model")
 data class WorkModel(
     @PrimaryKey(autoGenerate = true)
-    var workId: Long?,
+    var workId: Long,
 
-    @ColumnInfo(name = "work_category")
-    var category: String = "",
+    var category: String,
 
-    @ColumnInfo(name = "work_start_time")
-    var workStartTime: String = "",
+    var workStartTime: String,
 
-    @ColumnInfo(name = "work_finish_time")
-    var workFinishTime: String = "",
+    var workFinishTime: String,
 
-    @ColumnInfo(name = "work_memo")
-    var workMemo: String = "",
+    var workMemo: String,
 
-    @ColumnInfo(name = "work_position")
-    var workPosition: String? = ""
+    var workPosition: String
 ) {
-    constructor(category: String, workStartTime: String, workFinishTime: String, workMemo: String, workPosition: String?) : this(
-        null,
-        category,
-        workStartTime,
-        workFinishTime,
-        workMemo,
-        workPosition
-    )
+    constructor(
+        category: String,
+        workStartTime: String,
+        workFinishTime: String,
+        workMemo: String,
+        workPosition: String
+    ) : this(0, category, workStartTime, workFinishTime, workMemo, workPosition)
 }
 
 @Entity(tableName = "money_table")
 data class MoneyModel(
     @PrimaryKey(autoGenerate = true)
-    val id: Long?,
+    var moneyId: Long,
 
-    @ColumnInfo(name = "money_memo")
-    val memo: String,
+    var memo: String,
 
-    @ColumnInfo(name = "money_value")
-    val value: String,
+    var value: String,
 
-    @ColumnInfo(name = "work_model_id")
-    val workId: Long?
+    var workId: Long
 ) {
-    constructor(value: String, memo: String, workId: Long?) : this(
-        null,
-        value = value,
-        memo = memo,
-        workId = workId
-    )
+    constructor(memo: String, value: String) : this(0, memo, value, 0)
 }
 
 data class WorkWithMoneyModel(
-    @ColumnInfo(name = "work_model")
-    @Embedded val workModel: WorkModel,
+    @Embedded var workModel: WorkModel,
     @Relation(
         parentColumn = "workId",
-        entityColumn = "work_model_id"
+        entityColumn = "workId"
     )
-    @ColumnInfo(name = "money_list")
     val moneyList: List<MoneyModel>
 )
