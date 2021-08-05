@@ -3,6 +3,7 @@ package byc.app.tday.Page
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import byc.app.tday.Model.adapter.TdayListAdapter
+import byc.app.tday.Model.adapter.TdayMoneyListAdapter
 import byc.app.tday.R
 import byc.app.tday.Room.MoneyModel
 import byc.app.tday.Room.WorkModel
@@ -38,8 +40,21 @@ class TdayMain : AppCompatActivity() {
         toDoList.adapter = todoListAdapter
         toDoList.layoutManager = LinearLayoutManager(this)
 
+
+
         workViewModel = ViewModelProvider(this).get(WorkViewModel::class.java)
         moneyViewModel = ViewModelProvider(this).get(MoneyViewModel::class.java)
+        moneyViewModel.moneyData.observe(this, Observer { moneyData ->
+            moneyData.let { money ->
+                Log.d("MoneyData", "moneySize ${money.size}")
+                for (data in money) {
+                    Log.d(
+                        "MoneyData data",
+                        "data Value : ${data.value} Memo : ${data.memo} MoneyId : ${data.moneyId} WorkId : ${data.workId}"
+                    )
+                }
+            }
+        });
         tdayViewModel = ViewModelProvider(this).get(TdayViewModel::class.java)
         tdayViewModel.tdayData.observe(this, Observer { tdayData ->
             tdayData.let {
